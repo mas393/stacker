@@ -14,6 +14,13 @@ This cli will allow me to rapidly identify folders and files I am not using in a
 * if the stacks folder does not exist, it needs to be created
 * if the stacks folder does exist, it needs to be ignored regardless of the last date it was modified
 * this script should perform a check prior to moving all the folders into stacks
+* the reading lines section in this bash cheatsheet <https://devhints.io/bash> describes the way I can use the tree output with mv calls
+* for the call to tree, we need to use the --noreport option to omit the non-file/directory information
+* to have tree output the files/folders in chronilogical order (oldest modification date first) we can use the -t options
+* to split the input line from tree into the date and file path I will use the method described at <https://stackoverflow.com/questions/918886/how-do-i-split-a-string-on-a-delimiter-in-bash> where the string is piped into the tr command with specified delimeter arguments
+* it appears a call to $ echo "hello world" | tr " " "\n" splits the string hello world into two seperate strings based on the first break ," ", and the second break, "\n". This is the method I will use to split the tree output into date and location strings.
+* disregard all previous implementation details. I am now planning on piping the output of ls (why wouldn't I have used that rather than tree in the beginning) to a python script that will return a list list of files to move based on the parsed dates and a standard input
 
 # Thoughts
 * If this script moves a folder/file into stacks which later is sought by a program in the original folder, is there a way to notify the user that the program is looking for a file that was erroneously moved? Alternativly, something in the original folder direct programs towards the stacks folder if this situation arises?
+* How would this script handle the situation where the user does not have permission to modify/move the file?
